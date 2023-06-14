@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using HCI_Djole.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCI_Djole.Data
@@ -9,5 +10,10 @@ namespace HCI_Djole.Data
             : base(options)
         {
         }
+        public DbSet<Airport> Airports { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Flight> Flights { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<FlightRoute> FlightRoutes { get; set; }
     }
 }
