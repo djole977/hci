@@ -1,5 +1,14 @@
+@font-face{
+    font-family: 'Open Sans';
+    src: url('~/fonts/OpenSans-Variable.ttf') format('truetype');
+    src: url('~/fonts/OpenSans-Italic.ttf') format('truetype');
+}
 html {
   font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+p {
+    font-family: 'Open Sans', sans-serif;
 }
 
 @media (min-width: 768px) {

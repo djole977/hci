@@ -32,8 +32,10 @@ namespace HCI_Djole.Data.Models
         public string Description { get; set; }
         public FlightClass FlightClass { get; set; }
         public FlightStatus Status { get; set; }
-        public FlightReview Review { get; set; }
-        public int FlightRouteId { get; set; }
+        public FlightReview? Review { get; set; }
         public FlightRoute FlightRoute { get; set; }
+        public int FlightRouteId { get; set; }
+        public FlightCompany FlightCompany { get; set; }
+        public int FlightCompanyId { get; set; }
     }
 }
