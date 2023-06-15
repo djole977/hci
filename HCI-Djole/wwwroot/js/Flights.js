@@ -8,3 +8,7 @@
         }
     }
 })
+
+function GoToFlightDetails(id) {
+    window.location.href = $('#flightDetailsUrl').val() + '?flightId=' + id
+}

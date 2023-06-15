@@ -9,6 +9,7 @@ html {
 }
 p {
     font-family: 'Open Sans', sans-serif;
+    margin-bottom: 0px !important;
 }
 
 @media (min-width: 768px) {
@@ -24,4 +25,10 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+hr {
+    color: #b3b3b3;
+}
+.checked {
+    color: orange;
 }

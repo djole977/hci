@@ -32,10 +32,10 @@ namespace HCI_Djole.Business.Dtos
         public string Description { get; set; }
         public FlightClass FlightClass { get; set; }
         public FlightStatus Status { get; set; }
-        public FlightReview Review { get; set; }
         public FlightRouteDto FlightRoute { get; set; }
         public int FlightRouteId { get; set; }
         public FlightCompanyDto FlightCompany { get; set; }
         public int FlightCompanyId { get; set; }
+        public ICollection<ReviewDto> Reviews { get; set; }
     }
 }

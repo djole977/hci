@@ -76,5 +76,12 @@ namespace HCI_Djole.Controllers
             }
             return RedirectToAction("Flights", "Home");
         }
+        [HttpGet]
+        public async Task<IActionResult> FlightDetails(int flightId)
+        {
+            var model = await _flightService.GetFlightById(flightId);
+
+            return View(model);
+        }
     }
 }

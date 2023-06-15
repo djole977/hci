@@ -32,7 +32,7 @@
                         </div>
                     }
                     <div>
-                        <i style="cursor: pointer" class="fas fa-circle-info" data-toggle="tooltip" data-placement="top" title="Detaljnije"></i>
+                        <i style="cursor: pointer" class="fas fa-circle-info" data-toggle="tooltip" data-placement="top" title="Detaljnije" onclick="GoToFlightDetails(@flight.Id)"></i>
                     </div>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-3">
@@ -70,7 +70,7 @@
                         <h2 class="display-4" style="font-size: 16px;">@flight.StartTime.ToString("ddd, d MMM")</h2>
                     </div>
                     <div>
-                        <h2 class="display-4" style="font-size: 16px;">@Enum.GetName(typeof(@HCI_Djole.Business.Dtos.FlightClass), flight.FlightClass)</h2>
+                        <h2 class="display-4" style="font-size: 16px;">@Enum.GetName(typeof(HCI_Djole.Business.Dtos.FlightClass), flight.FlightClass)</h2>
                     </div>
                     <div>
                         <h2 class="display-4" style="font-size: 16px;">@flight.EndTime.ToString("ddd, d MMM")</h2>
@@ -101,6 +101,7 @@
 
 <input type="hidden" id="success" value="@TempData["success"]" />
 <input type="hidden" id="message" value="@TempData["message"]" />
+<input type="hidden" id="flightDetailsUrl" value="@Url.Action("FlightDetails", "Home")" />
 
 @section Scripts{
     <script src="~/js/Flights.js" asp-append-version="true"></script>

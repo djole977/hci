@@ -11,5 +11,6 @@ namespace HCI_Djole.Business.Interfaces
     {
         public Task CreateFlight(FlightDto newFlight);
         public Task<List<FlightDto>> GetAll();
+        public Task<FlightDto> GetFlightById(int flightId);
     }
 }

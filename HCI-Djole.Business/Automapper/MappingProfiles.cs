@@ -21,6 +21,7 @@ namespace HCI_Djole.Business.Automapper
             CreateMap<IdentityUser, UserDto>().ReverseMap();
             CreateMap<FlightRoute, FlightRouteDto>().ReverseMap();
             CreateMap<FlightCompany, FlightCompanyDto>().ReverseMap();
+            CreateMap<Review, ReviewDto>().ReverseMap();
         }
     }
 }

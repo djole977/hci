@@ -34,5 +34,13 @@ namespace HCI_Djole.Business.Services
                 .Include(f => f.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
                 .ToListAsync());
         }
+        public async Task<FlightDto> GetFlightById(int flightId)
+        {
+            return _mapper.Map<FlightDto>(await _db.Flights.Where(x => x.Id == flightId)
+                .Include(x => x.FlightRoute).ThenInclude(x => x.AirportFrom).ThenInclude(x => x.City)
+                .Include(x => x.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
+                .Include(x => x.Reviews).ThenInclude(x => x.Customer)
+                .Include(x => x.FlightCompany).FirstOrDefaultAsync());
+        }
     }
 }
