@@ -9,5 +9,6 @@ namespace HCI_Djole.Business.Dtos
     public class FlightCompanyDto : BaseDto
     {
         public string Name { get; set; }
+        public string CompanyLogo { get; set; }
     }
 }

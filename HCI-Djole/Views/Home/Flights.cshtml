@@ -7,30 +7,9 @@
             <div class="d-flex flex-column p-4 col-md-3 col-sm-6 col-12" style="border-radius: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.2); min-width: 240px; max-width: 350px">
             
                 <div class="d-flex flex-row justify-content-between">
-                    @if(flight.FlightCompany.Name == "WizzAir")
-                    {
-                        <div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Wizz_Air_logo.svg" style="height: 20px;">
-                        </div>
-                    }
-                    else if(flight.FlightCompany.Name == "Ryanair")
-                    {
-                        <div>
-                            <img src="~/images/Ryanair.png" style="height: 20px;">
-                        </div>
-                    }
-                    else if(flight.FlightCompany.Name == "AirSerbia")
-                    {
-                        <div>
-                            <img src="~/images/AirSerbia.png" style="height: 20px;">
-                        </div>
-                    }
-                    else if(flight.FlightCompany.Name == "AmericanAirlines")
-                    {
-                        <div>
-                            <img src="~/images/AmericanAirlines.png" style="height: 20px;">
-                        </div>
-                    }
+                    <div>
+                        <img src="data:image/png;base64,@flight.FlightCompany.CompanyLogo" style="height: 20px;">
+                    </div>
                     <div>
                         <i style="cursor: pointer" class="fas fa-circle-info" data-toggle="tooltip" data-placement="top" title="Detaljnije" onclick="GoToFlightDetails(@flight.Id)"></i>
                     </div>

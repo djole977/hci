@@ -9,5 +9,6 @@ namespace HCI_Djole.Data.Models
     public class FlightCompany : Base
     {
         public string Name { get; set; }
+        public string CompanyLogo { get; set; }
     }
 }
