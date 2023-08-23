@@ -67,7 +67,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">
+                            <a asp-controller="Home" asp-action="Flights" class="nav-link">
                                 <i class="nav-icon fas fa-chalkboard"></i>
                                 <p>
                                     Početna
@@ -88,7 +88,7 @@
                         @if (User.IsInRole("Administrator"))
                         {
                             <li class="nav-item">
-                                <a asp-controller="Home" asp-action="Settings" class="nav-link">
+                                <a asp-controller="Admin" asp-action="Settings" class="nav-link">
                                     <i class="nav-icon fas fa-lock"></i>
                                     <p>
                                         Admin portal
@@ -107,7 +107,18 @@
                                 </a>
                             </li>
                         }
-                        
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="Login" class="nav-link">
+                                    <i class="nav-icon fa fa-circle-o text-green"></i>
+                                    <p>
+                                        Prijavi se
+                                    </p>
+                                </a>
+                            </li>
+                        }
+
                     </ul>
                 </nav>
             </div>

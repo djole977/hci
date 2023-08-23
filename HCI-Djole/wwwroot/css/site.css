@@ -32,3 +32,31 @@ hr {
 .checked {
     color: orange;
 }
+.info-breathing {
+    border-radius: 25px;
+    width:20px;
+    height: 20px;
+    background-color: #17a2b8;
+    animation: 1.6s infinite alternate ease-out breathing-color--info;
+}
+@keyframes breathing-color--info {
+    from {
+        background-color: #17a2b8;
+    }
+
+    to {
+        background-color: #aae6f0;
+    }
+}
+.flight-cancelled {
+    border-radius: 25px;
+    width: 20px;
+    height: 20px;
+    background-color: #EF5350;
+}
+.flight-done {
+    border-radius: 25px;
+    width: 20px;
+    height: 20px;
+    background-color: #12EB90;
+}
