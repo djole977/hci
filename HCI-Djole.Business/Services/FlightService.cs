@@ -44,13 +44,25 @@ namespace HCI_Djole.Business.Services
         }
         public async Task<List<TicketDto>> GetCustomerTickets(string customerId)
         {
-            return _mapper.Map<List<TicketDto>>(await _db.Tickets.Where(x => x.CustomerId == customerId)
+            var tickets = _mapper.Map<List<TicketDto>>(await _db.Tickets.Where(x => x.CustomerId == customerId)
                 .Include(x => x.Customer)
                 .Include(x => x.Flight).ThenInclude(x => x.Reviews)
                 .Include(x => x.Flight).ThenInclude(x => x.FlightCompany)
                 .Include(x => x.Flight).ThenInclude(x => x.FlightRoute).ThenInclude(x => x.AirportFrom).ThenInclude(x => x.City)
                 .Include(x => x.Flight).ThenInclude(x => x.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
                 .ToListAsync());
+            foreach(var ticket in tickets)
+            {
+                if(ticket.Flight.Reviews.Where(r => r.CustomerId == customerId).Any())
+                {
+                    ticket.IsAlreadyRatedByCustomer = true;
+                }
+                else
+                {
+                    ticket.IsAlreadyRatedByCustomer = false;
+                }
+            }
+            return tickets;
         }
         public async Task ReserveFlightForCustomer(int flightId, string customerId)
         {
@@ -107,6 +119,19 @@ namespace HCI_Djole.Business.Services
                 .Include(x => x.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
                 .Include(x => x.Reviews).ThenInclude(x => x.Customer)
                 .Include(x => x.FlightCompany).ToListAsync());
+        }
+        public async Task GradeFlight(int flightId, int grade, string comment, string userId)
+        {
+            var newReview = new Review
+            {
+                CustomerId = userId,
+                FlightId = flightId,
+                Comment = comment,
+                CreatedAt = DateTime.Now,
+                Grade = grade
+            };
+            await _db.Reviews.AddAsync(newReview);
+            await _db.SaveChangesAsync();
         }
     }
 }

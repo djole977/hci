@@ -13,5 +13,6 @@ namespace HCI_Djole.Business.Dtos
         public DateTime BoughtAt { get; set; }
         public FlightDto Flight { get; set; }
         public int FlightId { get; set; }
+        public bool IsAlreadyRatedByCustomer { get; set; }
     }
 }

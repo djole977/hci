@@ -57,5 +57,18 @@ namespace HCI_Djole.Controllers
                 return Json(new { error = ex.Message, success = "false" });
             }
         }
+        public async Task<IActionResult> GradeFlight(int flightId, int grade, string comment)
+        {
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _flightService.GradeFlight(flightId, grade, comment, userId);
+                return Json(new { success = "true" });
+            }
+            catch(Exception ex)
+            {
+                return Json(new { success = "false", error = ex.Message });
+            }
+        }
     }
 }

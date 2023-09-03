@@ -15,5 +15,7 @@ namespace HCI_Djole.Data.Models
         public IdentityUser? Customer { get; set; }
         public string CustomerId { get; set; }
         public string Comment { get; set; }
+        public Flight Flight { get; set; }
+        public int FlightId { get; set; }
     }
 }

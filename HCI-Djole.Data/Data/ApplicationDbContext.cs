@@ -16,5 +16,6 @@ namespace HCI_Djole.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<FlightRoute> FlightRoutes { get; set; }
         public DbSet<FlightCompany> FlightCompanies { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }

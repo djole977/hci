@@ -85,6 +85,10 @@
                 {
                     <button class="btn btn-outline-danger" onclick="CancelModal(@ticket.Id)">Otkaži</button>
                 }
+                else if (!ticket.IsAlreadyRatedByCustomer && Enum.GetName(typeof(HCI_Djole.Business.Dtos.FlightStatus), ticket.Flight.Status) == "Obavljen")
+                {
+                    <button class="btn btn-outline-success" onclick="OpenRateModal(@ticket.Flight.Id)"><i class="fas fa-face-laugh-beam"></i>  Oceni</button>
+                }
             </div>
         </div>
     </div>

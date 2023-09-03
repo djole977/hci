@@ -9,7 +9,7 @@
     }
     else if (sessionStorage.getItem('success') === 'false') {
         if (sessionStorage.getItem('message') !== null) {
-            AlertError()
+            ErrorToast(sessionStorage.getItem('message'), 'GREŠKA')
         }
         else {
             SuccessToast('Obaveštenje', 'Akcija uspešno izvršena')

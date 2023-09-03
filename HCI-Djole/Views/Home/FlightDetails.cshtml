@@ -83,7 +83,7 @@
                 <div>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <button class="btn btn-outline-primary">Rezerviši</button>
+                        <button class="btn btn-outline-primary" onclick="ReserveModal(@Model.Id)">Rezerviši</button>
                     }
                     else
                     {
@@ -156,6 +156,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="reserveFlightUrl" value="@Url.Action("ReserveFlight", "User")" />
 @section Scripts{
     <script src="~/js/FlightDetails.js" asp-append-version="true"></script>
 }

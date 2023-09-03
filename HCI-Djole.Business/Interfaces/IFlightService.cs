@@ -18,5 +18,6 @@ namespace HCI_Djole.Business.Interfaces
         public Task<List<FlightCompanyDto>> GetAllCompanies();
         public Task<List<CityDto>> GetAllCities();
         public Task<List<FlightDto>> GetFlightsFiltered(FlightsFilterDto filters);
+        public Task GradeFlight(int flightId, int grade, string comment, string userId);
     }
 }
