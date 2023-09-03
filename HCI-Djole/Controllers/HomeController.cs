@@ -32,6 +32,8 @@ namespace HCI_Djole.Controllers
         {
             var model = new FlightsVM();
             model.Flights = await _flightService.GetAll();
+            model.FlightCompaines = await _flightService.GetAllCompanies();
+            model.Cities = await _flightService.GetAllCities();
             return View(model);
         }
 
@@ -82,6 +84,12 @@ namespace HCI_Djole.Controllers
             var model = await _flightService.GetFlightById(flightId);
 
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetFlightsFiltered(FlightsFilterDto filters)
+        {
+            var flightsFiltered = await _flightService.GetFlightsFiltered(filters);
+            return PartialView("~/Views/Shared/_TicketsPartial.cshtml", flightsFiltered);
         }
     }
 }

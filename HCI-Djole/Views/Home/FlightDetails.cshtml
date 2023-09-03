@@ -104,10 +104,17 @@
                     <p>Prosečna ocena: </p>
                     <div class="d-flex align-items-center ml-2">
                         @{
-                            var average = Model.Reviews.Sum(x => x.Grade) / Model.Reviews.Count;
-                            for(int i = 1; i < 6; i++)
+                            if(Model.Reviews.Count > 0)
                             {
-                                <span class="fa fa-star @(average >= i ? "checked" : "")"></span>
+                                var average = Model.Reviews.Sum(x => x.Grade) / Model.Reviews.Count;
+                                for (int i = 1; i < 6; i++)
+                                {
+                                    <span class="fa fa-star @(average >= i ? "checked" : "")"></span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="badge badge-warning">Nema utisaka</span>
                             }
                         }
                     </div>

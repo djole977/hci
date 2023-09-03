@@ -42,5 +42,66 @@ namespace HCI_Djole.Business.Services
                 .Include(x => x.Reviews).ThenInclude(x => x.Customer)
                 .Include(x => x.FlightCompany).FirstOrDefaultAsync());
         }
+        public async Task<List<TicketDto>> GetCustomerTickets(string customerId)
+        {
+            return _mapper.Map<List<TicketDto>>(await _db.Tickets.Where(x => x.CustomerId == customerId)
+                .Include(x => x.Customer)
+                .Include(x => x.Flight).ThenInclude(x => x.Reviews)
+                .Include(x => x.Flight).ThenInclude(x => x.FlightCompany)
+                .Include(x => x.Flight).ThenInclude(x => x.FlightRoute).ThenInclude(x => x.AirportFrom).ThenInclude(x => x.City)
+                .Include(x => x.Flight).ThenInclude(x => x.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
+                .ToListAsync());
+        }
+        public async Task ReserveFlightForCustomer(int flightId, string customerId)
+        {
+            var newTicket = new Ticket
+            {
+                FlightId = flightId,
+                CustomerId = customerId,
+                BoughtAt = DateTime.UtcNow,
+                CreatedAt = DateTime.UtcNow
+            };
+            await _db.Tickets.AddAsync(newTicket);
+            await _db.SaveChangesAsync();
+        }
+        public async Task CancelCustomerFlight(int ticketId, string customerId)
+        {
+            var ticket = await _db.Tickets.Where(x => x.Id == ticketId).FirstOrDefaultAsync();
+            if(ticket == null)
+            {
+                throw new Exception("TICKET NOT FOUND");
+            }
+            if(ticket.CustomerId == customerId)
+            {
+                _db.Tickets.Remove(ticket);
+                await _db.SaveChangesAsync();
+                return;
+            }
+            throw new Exception("CUSTOMER DOES NOT OWN THE TICKET");
+        }
+        public async Task<List<FlightCompanyDto>> GetAllCompanies()
+        {
+            return _mapper.Map<List<FlightCompanyDto>>(await _db.FlightCompanies.ToListAsync());
+        }
+        public async Task<List<CityDto>> GetAllCities()
+        {
+            return _mapper.Map<List<CityDto>>(await _db.Cities.ToListAsync());
+        }
+        public async Task<List<FlightDto>> GetFlightsFiltered(FlightsFilterDto filters)
+        {
+            if(filters.Companies == null)
+            {
+                return _mapper.Map<List<FlightDto>>(await _db.Flights.Where(x => x.Price >= filters.PriceFrom && x.Price <= filters.PriceTo && 
+                x.FlightRoute.AirportFrom.City.Id == filters.CityFrom &&
+                x.FlightRoute.AirportTo.City.Id == filters.CityTo).ToListAsync());
+            }
+            return _mapper.Map<List<FlightDto>>(await _db.Flights.Where(x => x.Price >= filters.PriceFrom &&  x.Price <= filters.PriceTo &&
+                filters.Companies.Contains(x.FlightCompany.Id) && x.FlightRoute.AirportFrom.City.Id == filters.CityFrom &&
+                x.FlightRoute.AirportTo.City.Id == filters.CityTo)
+                .Include(x => x.FlightRoute).ThenInclude(x => x.AirportFrom).ThenInclude(x => x.City)
+                .Include(x => x.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
+                .Include(x => x.Reviews).ThenInclude(x => x.Customer)
+                .Include(x => x.FlightCompany).ToListAsync());
+        }
     }
 }

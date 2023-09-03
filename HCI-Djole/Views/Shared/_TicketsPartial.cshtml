@@ -1,0 +1,103 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<HCI_Djole.Business.Dtos.FlightDto>
+@if(Model.Count == 0)
+{
+    <div class="col-12 mt-4 d-flex justify-content-center display-5">
+        Nema letova za izabrane kriterijume
+    </div>
+}
+@foreach (var flight in Model)
+{
+    <div class="d-flex flex-column p-4 col-md-3 col-sm-6 col-12" style="border-radius: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.2); min-width: 240px; max-width: 350px">
+
+        <div class="d-flex flex-row justify-content-between">
+            <div>
+                <img src="data:image/png;base64,@flight.FlightCompany.CompanyLogo" style="height: 20px;">
+            </div>
+            <div>
+                <i style="cursor: pointer" class="fas fa-circle-info" data-toggle="tooltip" data-placement="top" title="Detaljnije" onclick="GoToFlightDetails(@flight.Id)"></i>
+            </div>
+        </div>
+        <div class="d-flex flex-row justify-content-between mt-3">
+            <div class="font-weight-bold">
+                <h2 class="display-4" style="font-size: 36px; font-weight: 600;">@flight.FlightRoute.AirportFrom.Label</h2>
+            </div>
+            <div class="d-flex align-items-center" style="color: #1E90FF">
+                <i class="fas fa-plane"></i>
+            </div>
+            <div class="font-weight-bold">
+                <h2 class="display-4" style="font-size: 36px; font-weight: 600">@flight.FlightRoute.AirportTo.Label</h2>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2 class="display-4" style="font-size: 16px;">@flight.FlightRoute.AirportFrom.City.Name</h2>
+            </div>
+            <div>
+                <h2 class="display-4" style="font-size: 16px;">@flight.FlightRoute.AirportTo.City.Name</h2>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            <div>
+                <h2 class="display-4" style="font-size: 20px; font-weight: 600">@flight.StartTime.ToString("HH:mm")</h2>
+            </div>
+            <div>
+                <img src="~/images/seat.png" style="height: 30px">
+            </div>
+            <div>
+                <h2 class="display-4" style="font-size: 20px; font-weight: 600">@flight.EndTime.ToString("HH:mm")</h2>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2 class="display-4" style="font-size: 16px;">@flight.StartTime.ToString("ddd, d MMM")</h2>
+            </div>
+            <div>
+                <h2 class="display-4" style="font-size: 16px;">@Enum.GetName(typeof(HCI_Djole.Business.Dtos.FlightClass), flight.FlightClass)</h2>
+            </div>
+            <div>
+                <h2 class="display-4" style="font-size: 16px;">@flight.EndTime.ToString("ddd, d MMM")</h2>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start flex-row gap-sm-1 align-items-center mt-2">
+            @if (Enum.GetName(typeof(HCI_Djole.Business.Dtos.FlightStatus), flight.Status) == "Predstojeći")
+            {
+                <i class="info-breathing"></i>
+                <h5>Predstojeći</h5>
+            }
+            else if (Enum.GetName(typeof(HCI_Djole.Business.Dtos.FlightStatus), flight.Status) == "Obavljen")
+            {
+                <i class="flight-done"></i>
+                <h5>Obavljen</h5>
+            }
+            else if (Enum.GetName(typeof(HCI_Djole.Business.Dtos.FlightStatus), flight.Status) == "Otkazan")
+            {
+                <i class="flight-cancelled"></i>
+                <h5>Otkazan</h5>
+            }
+        </div>
+        <div class="mt-3" style="border: 1px dashed #b8b8b8;">
+        </div>
+        <div class="mt-3 d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="display-4" style="font-size: 30px; font-weight: 600">€ @flight.Price.ToString("N")</h2>
+            </div>
+            <div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <button class="btn btn-outline-primary" onclick="ReserveModal(@flight.Id)">Rezerviši</button>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Home")" style="font-weight: 500; font-size: 14px">Uloguj se </a>
+
+                    <h2 style="font-weight: 500; font-size: 14px">kako bi rezervisao kartu</h2>
+                }
+            </div>
+        </div>
+    </div>
+}

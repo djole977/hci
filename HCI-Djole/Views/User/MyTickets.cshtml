@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<HCI_Djole.Business.Dtos.TicketDto>
+<div class="pl-4 pr-4">
+    <div class="col-12 display-4">
+        Moje Karte
+    </div>
+    <div class="d-flex flex-row gap-4 flex-md-row flex-sm-row flex-column flex-wrap justify-content-start mt-3">
+        @await Html.PartialAsync("_CustomerTicketsPartial", Model)
+    </div>
+</div>
+<input type="hidden" id="success" value="@TempData["success"]" />
+<input type="hidden" id="message" value="@TempData["message"]" />
+<input type="hidden" id="flightDetailsUrl" value="@Url.Action("FlightDetails", "Home")" />
+<input type="hidden" id="filterFlightsUrl" value="@Url.Action("GetFlightsFiltered", "Home")" />
+<input type="hidden" id="cancelFlightUrl" value="@Url.Action("CancelFlight", "User")" />
+<script src="~/js/Flights.js" asp-append-version="true"></script>
