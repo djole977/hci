@@ -1,4 +1,5 @@
-﻿@model HCI_Djole.ViewModels.FlightsVM
+﻿@using HCI_Djole.Business.Dtos;
+@model HCI_Djole.ViewModels.FlightsVM
 
 <div class="pl-4 pr-4">
     <div class="card collapsed-card">
@@ -10,13 +11,13 @@
         </div>
         <div class="card-body" style="display: none">
             <div class="d-flex flex-row gap-4 flex-wrap">
-                <div class="d-flex flex-column col-md-3 col-sm-4 col-6 gap-3">
+                <div class="d-flex flex-column col-md-3 col-sm-6 col-12 gap-3 border rounded" style="padding: 24px">
                     <h4>Opseg cene</h4>
                     <div>
                         <input type="text" class="js-range-slider" name="my_range" value="" />
                     </div>
                 </div>
-                <div class="d-flex flex-column col-md-3 col-sm-4 col-6 gap-3">
+                <div class="d-flex flex-column col-md-3 col-sm-6 col-12 gap-3 border rounded" style="padding: 24px">
                     <h4>Avio prevoznik</h4>
                     <div>
                         <select multiple class="form-control" id="companiesSelect">
@@ -27,7 +28,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="d-flex flex-column col-md-2 col-sm-4 col-6 gap-3">
+                <div class="d-flex flex-column col-md-2 col-sm-6 col-12 gap-3 border rounded" style="padding: 24px">
                     <h4>Grad od</h4>
                     <div class="col-12">
                         <select class="form-control" id="cityFromSelect">
@@ -38,13 +39,24 @@
                         </select>
                     </div>
                 </div>
-                <div class="d-flex flex-column col-md-2 col-sm-4 col-6 gap-3">
+                <div class="d-flex flex-column col-md-2 col-sm-6 col-12 gap-3 border rounded" style="padding: 24px">
                     <h4>Grad do</h4>
                     <div class="col-12">
                         <select class="form-control" id="cityToSelect">
                             @foreach (var city in Model.Cities)
                             {
                                 <option data-id="@city.Id">@city.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex flex-column col-md-2 col-sm-6 col-12 gap-3 border rounded" style="padding: 24px">
+                    <h4>Kategorija</h4>
+                    <div class="col-12">
+                        <select class="form-control" id="flightClassSelect">
+                            @foreach (var flightClass in Enum.GetValues(typeof(FlightClass)))
+                            {
+                                <option value="@flightClass">@flightClass</option>
                             }
                         </select>
                     </div>

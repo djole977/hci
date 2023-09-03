@@ -89,15 +89,20 @@ namespace HCI_Djole.Business.Services
         }
         public async Task<List<FlightDto>> GetFlightsFiltered(FlightsFilterDto filters)
         {
+            var flightClass = (Dtos.FlightClass)Enum.Parse(typeof(Dtos.FlightClass), filters.FlightCategory);
+            int classValue = (int)flightClass;
             if(filters.Companies == null)
             {
                 return _mapper.Map<List<FlightDto>>(await _db.Flights.Where(x => x.Price >= filters.PriceFrom && x.Price <= filters.PriceTo && 
                 x.FlightRoute.AirportFrom.City.Id == filters.CityFrom &&
-                x.FlightRoute.AirportTo.City.Id == filters.CityTo).ToListAsync());
+                x.FlightRoute.AirportTo.City.Id == filters.CityTo && (int)x.FlightClass == classValue).Include(x => x.FlightRoute).ThenInclude(x => x.AirportFrom).ThenInclude(x => x.City)
+                .Include(x => x.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
+                .Include(x => x.Reviews).ThenInclude(x => x.Customer)
+                .Include(x => x.FlightCompany).ToListAsync());
             }
             return _mapper.Map<List<FlightDto>>(await _db.Flights.Where(x => x.Price >= filters.PriceFrom &&  x.Price <= filters.PriceTo &&
                 filters.Companies.Contains(x.FlightCompany.Id) && x.FlightRoute.AirportFrom.City.Id == filters.CityFrom &&
-                x.FlightRoute.AirportTo.City.Id == filters.CityTo)
+                x.FlightRoute.AirportTo.City.Id == filters.CityTo && (int)x.FlightClass == classValue)
                 .Include(x => x.FlightRoute).ThenInclude(x => x.AirportFrom).ThenInclude(x => x.City)
                 .Include(x => x.FlightRoute).ThenInclude(x => x.AirportTo).ThenInclude(x => x.City)
                 .Include(x => x.Reviews).ThenInclude(x => x.Customer)

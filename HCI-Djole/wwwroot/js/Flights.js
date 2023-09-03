@@ -32,9 +32,10 @@ function FilterFlights() {
     }).get();
     var cityFrom = $("#cityFromSelect :selected").data('id')
     var cityTo = $("#cityToSelect :selected").data('id')
+    var flightCategory = $("#flightClassSelect :selected").val()
     $.ajax({
         type: 'POST',
-        data: { priceFrom: priceFrom, priceTo: priceTo, companies: companies, cityFrom: cityFrom, cityTo: cityTo },
+        data: { priceFrom: priceFrom, priceTo: priceTo, companies: companies, cityFrom: cityFrom, cityTo: cityTo, flightCategory: flightCategory },
         url: $('#filterFlightsUrl').val(),
         success: function (returnData) {
             $('#flightsContainer').empty()

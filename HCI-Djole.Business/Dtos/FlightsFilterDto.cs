@@ -13,5 +13,6 @@ namespace HCI_Djole.Business.Dtos
         public int[] Companies { get; set; }
         public int CityFrom { get; set; }
         public int CityTo { get; set; }
+        public string FlightCategory { get; set; }
     }
 }
